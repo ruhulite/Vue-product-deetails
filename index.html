@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Starting VUE - HOME</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" href="assets/css/custom.css" media="all">
+
+  </head>
+  <body>
+    
+    <div id="app">
+      
+      <header class="site-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+              <h1><a href=""><img src="" alt="Logo"></a></h1>
+            </div>
+            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+              
+              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="">Home <span class="sr-only">(current)</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="">About us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="">Contact us</a></li>
+                  </ul>
+                </div>
+              </nav>
+
+            </div>
+          </div>
+        </div>
+      </header>
+      <main id="contant">
+        <section class="product-details">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <figure><img v-bind:src="image"></figure>
+              </div>
+              <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                
+                <h3 class="title"> {{ product }} </h3>
+                <p v-if="inventory > 10">In Stock!</p>
+                <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
+                <p v-else>Out of Stock!</p>
+                <p v-show>Show me!</p>
+                
+                <ul class="details">
+                  <li v-for="detail in details">
+                    {{ detail }}
+                  </li>
+                </ul>
+
+                <div class="variant-color">
+                  <label v-for="variant in variants" :key="variant.variantId">
+                    <span @mouseover="updateVariantColor(variant.variantImage)"> {{ variant.variantColor }} </span>
+                  </label>
+                </div>
+
+                <div class="action-area">
+                  <button class="btn btn-primary" v-on:click="addToCart">Add to cart</button>
+                  <span class="cart-count"> Cart {{ cart }}</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="assets/js/vue.js"></script>
+    <script type="text/javascript">
+      
+      var app = new Vue({
+        el: '#app',
+        data: {
+          product: 'Socks',
+          image: 'assets/images/t-shirt.jpg',
+          inventory: 100,
+          details: ["80% cotton", "20% polyester", "Gender-neutral"],
+          variants: [
+            {
+              variantId: 2,
+              variantColor: "green",
+              variantImage: 'assets/images/green.jpg',
+            },
+            {
+              variantId: 3,
+              variantColor: "blue",
+              variantImage: 'assets/images/blue.jpg',
+            },
+          ],
+          cart: 0,
+        },
+        methods: {
+          addToCart() {
+            this.cart += 1
+          },
+          updateVariantColor(variantImage) {
+            this.image = variantImage
+          }
+        },
+      });
+
+    </script>
+    
+  </body>
+</html>
